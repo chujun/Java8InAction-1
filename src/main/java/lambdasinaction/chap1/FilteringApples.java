@@ -33,6 +33,7 @@ public class FilteringApples{
         System.out.println(weirdApples);
     }
 
+    //不在使用的方法
     public static List<Apple> filterGreenApples(List<Apple> inventory){
         List<Apple> result = new ArrayList<>();
         for (Apple apple: inventory){
