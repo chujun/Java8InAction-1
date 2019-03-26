@@ -29,10 +29,10 @@ public class Mapping {
         System.out.println("filter flatmap:");
         pairs = generateNumberPairs().filter(pair -> (pair[0] + pair[1]) % 3 == 0).collect(toList());
         pairs.forEach(pair -> System.out.println("(" + pair[0] + ", " + pair[1] + ")"));
-        useFlatMapDemo();
+        useFlatMapForCollectGroupedMap();
     }
 
-    private static void useFlatMapDemo() {
+    private static void useFlatMapForCollectGroupedMap() {
         //flatmap:把一个流中的每个值都换成另一个流，然后把所有的流链接起来成为一个流
         Map<Integer, List<String>> map = new HashMap<>();
         map.put(1, Arrays.asList("a", "b", "c"));
