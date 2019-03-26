@@ -11,6 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.16.6</lombok.version>
+        <arch.version>1.0.0.5-SNAPSHOT</arch.version>
     </properties>
 
     <dependencies>
@@ -24,6 +25,18 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jun.chu</groupId>
+            <artifactId>arch-core</artifactId>
+            <version>${arch.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jun.chu</groupId>
+            <artifactId>arch-test</artifactId>
+            <version>${arch.version}</version>
         </dependency>
     </dependencies>
 
