@@ -1,10 +1,10 @@
 package lambdasinaction.chap5;
-import lambdasinaction.chap4.*;
+import lambdasinaction.chap4.Dish;
 
-import java.util.stream.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+
 import static java.util.stream.Collectors.toList;
-
 import static lambdasinaction.chap4.Dish.menu;
 
 public class Filtering{
@@ -23,6 +23,7 @@ public class Filtering{
         List<Integer> numbers = Arrays.asList(1, 2, 1, 3, 3, 2, 4);
         numbers.stream()
                .filter(i -> i % 2 == 0)
+            //比较对象需要实现equals和hashcode
                .distinct()
                .forEach(System.out::println);
 
@@ -32,10 +33,11 @@ public class Filtering{
                 .filter(d -> d.getCalories() > 300)
                 .limit(3)
                 .collect(toList());
-
+        System.out.println("Truncating a stream:");
         dishesLimit3.forEach(System.out::println);
 
         // Skipping elements
+        System.out.println("Skipping elements:");
         List<Dish> dishesSkip2 =
             menu.stream()
                 .filter(d -> d.getCalories() > 300)
