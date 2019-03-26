@@ -2,8 +2,7 @@ package lambdasinaction.chap5;
 
 import lambdasinaction.chap4.Dish;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,6 +29,19 @@ public class Mapping {
         System.out.println("filter flatmap:");
         pairs = generateNumberPairs().filter(pair -> (pair[0] + pair[1]) % 3 == 0).collect(toList());
         pairs.forEach(pair -> System.out.println("(" + pair[0] + ", " + pair[1] + ")"));
+        useFlatMapDemo();
+    }
+
+    private static void useFlatMapDemo() {
+        //flatmap:把一个流中的每个值都换成另一个流，然后把所有的流链接起来成为一个流
+        Map<Integer, List<String>> map = new HashMap<>();
+        map.put(1, Arrays.asList("a", "b", "c"));
+        map.put(2, Arrays.asList("d", "e", "f"));
+        map.put(3, Arrays.asList("g", "h", "i"));
+        map.values().stream().flatMap((List<String> item) -> item.stream()).collect(toList())
+                .forEach(System.out::println);
+        //简写
+        map.values().stream().flatMap(Collection::stream).collect(toList()).forEach(System.out::println);
     }
 
     /**
