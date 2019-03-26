@@ -1,9 +1,11 @@
 package lambdasinaction.chap5;
 
-import lambdasinaction.chap4.*;
+import lambdasinaction.chap4.Dish;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 import static lambdasinaction.chap4.Dish.menu;
@@ -23,12 +25,22 @@ public class Mapping {
         printWordDistinctChar(words);
 
         // flatMap
-        List<Integer> numbers1 = Arrays.asList(1, 2, 3, 4, 5);
-        List<Integer> numbers2 = Arrays.asList(6, 7, 8);
-        List<int[]> pairs = numbers1.stream()
-                .flatMap((Integer i) -> numbers2.stream().map((Integer j) -> new int[] { i, j }))
-                .filter(pair -> (pair[0] + pair[1]) % 3 == 0).collect(toList());
+        List<int[]> pairs = generateNumberPairs().collect(Collectors.toList());
         pairs.forEach(pair -> System.out.println("(" + pair[0] + ", " + pair[1] + ")"));
+        System.out.println("filter flatmap:");
+        pairs = generateNumberPairs().filter(pair -> (pair[0] + pair[1]) % 3 == 0).collect(toList());
+        pairs.forEach(pair -> System.out.println("(" + pair[0] + ", " + pair[1] + ")"));
+    }
+
+    /**
+     * 生成数对 (1, 4) (1, 5) (1, 6) (2, 4) (2, 5) (2, 6) (3, 4) (3, 5) (3, 6)
+     * 
+     * @return
+     */
+    private static Stream<int[]> generateNumberPairs() {
+        List<Integer> numbers1 = Arrays.asList(1, 2, 3);
+        List<Integer> numbers2 = Arrays.asList(4, 5, 6);
+        return numbers1.stream().flatMap((Integer i) -> numbers2.stream().map((Integer j) -> new int[] { i, j }));
     }
 
     private static void printWordDistinctChar(List<String> words) {
