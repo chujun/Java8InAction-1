@@ -39,7 +39,7 @@ public class NumericStreams {
 
         Stream<double[]> pythagoreanTriples2 = IntStream.rangeClosed(1, 100).boxed()
                 .flatMap(a -> IntStream.rangeClosed(a, 100)
-                        .mapToObj(b -> new double[] { a, b, Math.sqrt((a * a + b * b)) }).filter(t -> t[2] % 1 == 0)).mapToInt(t->(int)t);
+                        .mapToObj(b -> new double[] { a, b, Math.sqrt((a * a + b * b)) }).filter(t -> t[2] % 1 == 0));
         System.out.println("pythagorean triples:");
         pythagoreanTriples2.forEach(d -> System.out.println(d[0] + "," + d[1] + "," + d[2]));
 
