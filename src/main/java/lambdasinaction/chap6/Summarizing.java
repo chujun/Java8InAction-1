@@ -8,17 +8,19 @@ import static lambdasinaction.chap6.Dish.menu;
 
 public class Summarizing {
 
-    public static void main(String ... args) {
+    public static void main(String... args) {
         System.out.println("Nr. of dishes: " + howManyDishes());
         System.out.println("The most caloric dish is: " + findMostCaloricDish());
         System.out.println("The most caloric dish is: " + findMostCaloricDishUsingComparator());
         System.out.println("Total calories in menu: " + calculateTotalCalories());
         System.out.println("Average calories in menu: " + calculateAverageCalories());
         System.out.println("Menu statistics: " + calculateMenuStatistics());
+        //关注空集合的最大值与最小值
+        //Menu statistics for empty stream: IntSummaryStatistics{count=0, sum=0, min=2147483647, average=0.000000, max=-2147483648}
+        System.out.println("Menu statistics for empty stream: " + calculateMenuStatisticsForEmptyStream());
         System.out.println("Short menu: " + getShortMenu());
         System.out.println("Short menu comma separated: " + getShortMenuCommaSeparated());
     }
-
 
     private static long howManyDishes() {
         return menu.stream().collect(counting());
@@ -40,6 +42,11 @@ public class Summarizing {
 
     private static Double calculateAverageCalories() {
         return menu.stream().collect(averagingInt(Dish::getCalories));
+    }
+
+    private static IntSummaryStatistics calculateMenuStatisticsForEmptyStream() {
+        List<Dish> menu = Arrays.asList();
+        return menu.stream().collect(summarizingInt(Dish::getCalories));
     }
 
     private static IntSummaryStatistics calculateMenuStatistics() {
