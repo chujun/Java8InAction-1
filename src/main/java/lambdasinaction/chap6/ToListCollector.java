@@ -60,11 +60,12 @@ public class ToListCollector<T> implements Collector<T, List<T>, List<T>> {
 
         @Override
         public Function<List<T>, Set<T>> finisher() {
-            return i->new HashSet<>(i);
+            return i -> new HashSet<>(i);
         }
 
         @Override
         public Set<Characteristics> characteristics() {
+            //关于为何这儿不能添加IDENTITY_FINISH枚举，直接看源码说明和源码collect方法实现即可一目了然
             return Collections.unmodifiableSet(EnumSet.of(CONCURRENT));
         }
 
