@@ -12,6 +12,7 @@ public class Grouping {
     public static void main(String ... args) {
         System.out.println("Dishes grouped by type: " + groupDishesByType());
         System.out.println("Dishes grouped by caloric level: " + groupDishesByCaloricLevel());
+        //multi level groupingby
         System.out.println("Dishes grouped by type and caloric level: " + groupDishedByTypeAndCaloricLevel());
         System.out.println("Count dishes in groups: " + countDishesInGroups());
         System.out.println("Most caloric dishes by type: " + mostCaloricDishesByType());
