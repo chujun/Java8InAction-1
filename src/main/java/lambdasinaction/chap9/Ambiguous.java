@@ -19,6 +19,7 @@ public class Ambiguous{
     }
 
     static class C implements B, A {
+        @Override
         public void hello(){
             A.super.hello();
         }
