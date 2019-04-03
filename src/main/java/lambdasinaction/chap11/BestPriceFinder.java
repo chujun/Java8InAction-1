@@ -62,14 +62,26 @@ public class BestPriceFinder {
                         quote -> CompletableFuture.supplyAsync(() -> Discount.applyDiscount(quote), executor)));
     }
 
-    public void printPricesStream(String product) {
+    public void printAllPricesStream(String product) {
         long start = System.nanoTime();
         CompletableFuture[] futures = findPricesStream(product)
                 .map(f -> f.thenAccept(s -> System.out
                         .println(s + " (done in " + ((System.nanoTime() - start) / 1_000_000) + " msecs)")))
                 .toArray(size -> new CompletableFuture[size]);
+        //等待所有CompletableFuture执行完毕
         CompletableFuture.allOf(futures).join();
         System.out.println("All shops have now responded in " + ((System.nanoTime() - start) / 1_000_000) + " msecs");
+    }
+
+    public void printAnyPricesStream(String product) {
+        long start = System.nanoTime();
+        CompletableFuture[] futures = findPricesStream(product)
+            .map(f -> f.thenAccept(s -> System.out
+                .println(s + " (done in " + ((System.nanoTime() - start) / 1_000_000) + " msecs)")))
+            .toArray(size -> new CompletableFuture[size]);
+        //等待任意一个CompletableFuture执行完毕，主线程就继续执行下去
+        CompletableFuture.anyOf(futures).join();
+        System.out.println("any shop have now responded in " + ((System.nanoTime() - start) / 1_000_000) + " msecs");
     }
 
 }
