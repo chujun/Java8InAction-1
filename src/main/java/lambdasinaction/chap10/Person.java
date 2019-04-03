@@ -6,6 +6,7 @@ import java.util.*;
 
 @Data
 public class Person {
+    private int           age;
 
     private Optional<Car> car;
 }
