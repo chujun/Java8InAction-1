@@ -11,6 +11,7 @@ public class BestPriceFinderMain {
         execute("sequential", () -> bestPriceFinder.findPricesSequential("myPhone27S"));
         execute("parallel", () -> bestPriceFinder.findPricesParallel("myPhone27S"));
         execute("composed CompletableFuture", () -> bestPriceFinder.findPricesFuture("myPhone27S"));
+        execute("composed CompletableFuture v2", () -> bestPriceFinder.findPricesFuture2("myPhone27S"));
         bestPriceFinder.printPricesStream("myPhone27S");
     }
 
