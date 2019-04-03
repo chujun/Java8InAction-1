@@ -41,7 +41,7 @@ public class BestPriceFinder {
     }
 
     public List<String> findPricesFuture2(String product) {
-        List<CompletableFuture<String>> priceFutures = findPricesStream(product)
+        List<CompletableFuture<String>> priceFutures = findPricesStream2(product)
             .collect(Collectors.<CompletableFuture<String>> toList());
 
         return priceFutures.stream().map(CompletableFuture::join).collect(Collectors.toList());
@@ -57,7 +57,7 @@ public class BestPriceFinder {
     public Stream<CompletableFuture<String>> findPricesStream2(String product) {
         return shops.stream().map(shop -> CompletableFuture.supplyAsync(() -> shop.getPrice(product), executor))
                 .map(future -> future.thenApply(Quote::parse))
-                //thenCompose
+                //thenCompose VS thenApply
                 .map(future -> future.thenCompose(
                         quote -> CompletableFuture.supplyAsync(() -> Discount.applyDiscount(quote), executor)));
     }
