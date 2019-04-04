@@ -11,6 +11,7 @@ import java.time.temporal.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 import static java.time.temporal.TemporalAdjusters.nextOrSame;
@@ -29,6 +30,26 @@ public class DateTimeExamples {
         useChangeable();
         useTemporalAdjuster();
         useDateFormatter();
+        useZoneId();
+    }
+
+    private static void useZoneId() {
+        TimeZone timeZone = TimeZone.getDefault();
+        ZoneId zoneId = timeZone.toZoneId();
+        //Asia/Shanghai
+        System.out.println(zoneId);
+        LocalDate date = LocalDate.of(2014, 3, 18);
+        LocalDateTime localDateTime = date.atStartOfDay();
+        System.out.println(localDateTime);
+        ZonedDateTime zonedDateTime = localDateTime.atZone(zoneId);
+        System.out.println("zonedDateTime:" + zonedDateTime);
+
+        Instant now = Instant.now();
+        ZonedDateTime zonedDateTime1 = now.atZone(zoneId);
+
+        //localDateTime.toInstant(zoneId);
+        LocalDateTime timeFromInstant = LocalDateTime.ofInstant(now, zoneId);
+        System.out.println("timeFromInstant:"+timeFromInstant);
     }
 
     private static void useOldDate() {
@@ -202,7 +223,7 @@ public class DateTimeExamples {
                 .appendLiteral(". ").appendText(ChronoField.MONTH_OF_YEAR).appendLiteral(" ")
                 .appendText(ChronoField.YEAR).parseCaseInsensitive().toFormatter(Locale.ITALIAN);
 
-        System.out.println("complexFormatter:"+date.format(complexFormatter));
+        System.out.println("complexFormatter:" + date.format(complexFormatter));
     }
 
 }
