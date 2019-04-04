@@ -76,12 +76,13 @@ public class DateTimeExamples {
             e.printStackTrace();
         }
 
+        LocalDateTime dt0 = LocalDateTime.of(2014, 3, 18, 13, 45, 20); // 2014-03-18T13:45
         LocalDateTime dt1 = LocalDateTime.of(2014, Month.MARCH, 18, 13, 45, 20); // 2014-03-18T13:45
         LocalDateTime dt2 = LocalDateTime.of(date, time);
         LocalDateTime dt3 = date.atTime(13, 45, 20);
         LocalDateTime dt4 = date.atTime(time);
         LocalDateTime dt5 = time.atDate(date);
-        System.out.println(dt1);
+        System.out.println(dt0 + "," + dt1);
 
         LocalDate date1 = dt1.toLocalDate();
         System.out.println(date1);
@@ -93,11 +94,17 @@ public class DateTimeExamples {
 
         Duration d1 = Duration.between(LocalTime.of(13, 45, 10), time);
         Duration d2 = Duration.between(instant, now);
-        System.out.println(d1.getSeconds());
-        System.out.println(d2.getSeconds());
+        System.out.println("Duration seconds:" + d1.getSeconds());
+        System.out.println("Duration seconds:" + d2.getSeconds());
 
-        Duration threeMinutes = Duration.of(3, ChronoUnit.MINUTES);
+        Duration threeMinutes = Duration.ofMinutes(3);
+        threeMinutes = Duration.of(3, ChronoUnit.MINUTES);
         System.out.println(threeMinutes);
+
+        Period tenDays = Period.ofDays(10);
+        Period threeWeeks = Period.ofWeeks(3);
+        Period twoYearsSixMonthsOneDay = Period.of(2, 6, 1);
+        System.out.println("Period:"+tenDays+","+threeWeeks+","+twoYearsSixMonthsOneDay);
 
         JapaneseDate japaneseDate = JapaneseDate.from(date);
         System.out.println(japaneseDate);
