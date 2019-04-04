@@ -154,11 +154,11 @@ public class DateTimeExamples {
         });
         System.out.println(date);
         date = date.with(nextWorkingDay());
-        System.out.println("nextWorkingDay():"+date);
+        System.out.println("nextWorkingDay():" + date);
     }
 
-    private static TemporalAdjuster nextWorkingDay(){
-        return TemporalAdjusters.ofDateAdjuster(temporal->{
+    private static TemporalAdjuster nextWorkingDay() {
+        return TemporalAdjusters.ofDateAdjuster(temporal -> {
             DayOfWeek dow = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
             int dayToAdd = 1;
             if (dow == DayOfWeek.FRIDAY)
@@ -183,7 +183,14 @@ public class DateTimeExamples {
     }
 
     private static void useDateFormatter() {
+        System.out.println("useDateFormatter start:");
         LocalDate date = LocalDate.of(2014, 3, 18);
+        LocalDateTime localDateTime = date.atTime(23, 12, 23);
+        System.out.println(localDateTime.format(DateTimeFormatter.BASIC_ISO_DATE));
+        System.out.println(localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE));
+        System.out.println(localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        System.out.println(localDateTime.format(DateTimeFormatter.ISO_DATE_TIME));
+        //DateTimeFormatter 线程安全
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter italianFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.ITALIAN);
 
