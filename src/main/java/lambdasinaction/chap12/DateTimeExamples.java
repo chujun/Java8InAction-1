@@ -29,6 +29,7 @@ public class DateTimeExamples {
     public static void main(String[] args) {
         useOldDate();
         useLocalDate();
+        useChangeable();
         useTemporalAdjuster();
         useDateFormatter();
     }
@@ -110,8 +111,8 @@ public class DateTimeExamples {
         System.out.println(japaneseDate);
     }
 
-    private static void useTemporalAdjuster() {
-        System.out.println("useTemporalAdjuster:");
+    private static void useChangeable() {
+        System.out.println("useChangeable:");
         LocalDate date1 = LocalDate.of(2014, 3, 18);
         LocalDate date2 = date1.withYear(2011);
         LocalDate date3 = date2.withDayOfMonth(25);
@@ -126,6 +127,10 @@ public class DateTimeExamples {
         //date1:2014-03-18,date2:2014-03-25,date3:2011-03-25,date4:2011-09-25
         System.out.println("date1:" + date1 + ",date2:" + date2 + ",date3:" + date3 + ",date4:" + date4);
 
+    }
+
+    private static void useTemporalAdjuster() {
+        System.out.println("useTemporalAdjuster:");
         LocalDate date = LocalDate.of(2014, 3, 18);
         date = date.with(nextOrSame(DayOfWeek.SUNDAY));
         System.out.println(date);
