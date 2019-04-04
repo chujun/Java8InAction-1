@@ -202,7 +202,7 @@ public class DateTimeExamples {
                 .appendLiteral(". ").appendText(ChronoField.MONTH_OF_YEAR).appendLiteral(" ")
                 .appendText(ChronoField.YEAR).parseCaseInsensitive().toFormatter(Locale.ITALIAN);
 
-        System.out.println(date.format(complexFormatter));
+        System.out.println("complexFormatter:"+date.format(complexFormatter));
     }
 
 }
