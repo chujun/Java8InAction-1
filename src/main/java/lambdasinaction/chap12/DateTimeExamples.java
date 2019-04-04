@@ -1,20 +1,12 @@
 package lambdasinaction.chap12;
 
-import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
-import static java.time.temporal.TemporalAdjusters.nextOrSame;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
+import java.time.*;
 import java.time.chrono.JapaneseDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
@@ -22,6 +14,9 @@ import java.time.temporal.TemporalAdjuster;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
+import static java.time.temporal.TemporalAdjusters.nextOrSame;
 
 public class DateTimeExamples {
 
@@ -62,12 +57,24 @@ public class DateTimeExamples {
         int y = date.get(ChronoField.YEAR);
         int m = date.get(ChronoField.MONTH_OF_YEAR);
         int d = date.get(ChronoField.DAY_OF_MONTH);
+        System.out.println("ChronoField,year:" + y + ",month:" + m + ",dayOfMonth:" + d);
 
         LocalTime time = LocalTime.of(13, 45, 20); // 13:45:20
         int hour = time.getHour(); // 13
         int minute = time.getMinute(); // 45
         int second = time.getSecond(); // 20
         System.out.println(time);
+
+        date = LocalDate.parse("2014-03-18");
+        time = LocalTime.parse("13:45:20");
+        System.out.println("parse:" + date + "," + time);
+        try {
+            System.out.println("parse:" + LocalTime.parse("13:45:"));
+        } catch (DateTimeParseException e) {
+            //RuntimeException
+            System.out.println(e);
+            e.printStackTrace();
+        }
 
         LocalDateTime dt1 = LocalDateTime.of(2014, Month.MARCH, 18, 13, 45, 20); // 2014-03-18T13:45
         LocalDateTime dt2 = LocalDateTime.of(date, time);
@@ -115,8 +122,10 @@ public class DateTimeExamples {
         date = date.with(temporal -> {
             DayOfWeek dow = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
             int dayToAdd = 1;
-            if (dow == DayOfWeek.FRIDAY) dayToAdd = 3;
-            if (dow == DayOfWeek.SATURDAY) dayToAdd = 2;
+            if (dow == DayOfWeek.FRIDAY)
+                dayToAdd = 3;
+            if (dow == DayOfWeek.SATURDAY)
+                dayToAdd = 2;
             return temporal.plus(dayToAdd, ChronoUnit.DAYS);
         });
         System.out.println(date);
@@ -127,8 +136,10 @@ public class DateTimeExamples {
         public Temporal adjustInto(Temporal temporal) {
             DayOfWeek dow = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
             int dayToAdd = 1;
-            if (dow == DayOfWeek.FRIDAY) dayToAdd = 3;
-            if (dow == DayOfWeek.SATURDAY) dayToAdd = 2;
+            if (dow == DayOfWeek.FRIDAY)
+                dayToAdd = 3;
+            if (dow == DayOfWeek.SATURDAY)
+                dayToAdd = 2;
             return temporal.plus(dayToAdd, ChronoUnit.DAYS);
         }
     }
@@ -142,14 +153,9 @@ public class DateTimeExamples {
         System.out.println(date.format(formatter));
         System.out.println(date.format(italianFormatter));
 
-        DateTimeFormatter complexFormatter = new DateTimeFormatterBuilder()
-                .appendText(ChronoField.DAY_OF_MONTH)
-                .appendLiteral(". ")
-                .appendText(ChronoField.MONTH_OF_YEAR)
-                .appendLiteral(" ")
-                .appendText(ChronoField.YEAR)
-                .parseCaseInsensitive()
-                .toFormatter(Locale.ITALIAN);
+        DateTimeFormatter complexFormatter = new DateTimeFormatterBuilder().appendText(ChronoField.DAY_OF_MONTH)
+                .appendLiteral(". ").appendText(ChronoField.MONTH_OF_YEAR).appendLiteral(" ")
+                .appendText(ChronoField.YEAR).parseCaseInsensitive().toFormatter(Locale.ITALIAN);
 
         System.out.println(date.format(complexFormatter));
     }
