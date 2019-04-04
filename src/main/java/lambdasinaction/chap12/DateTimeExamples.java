@@ -104,13 +104,28 @@ public class DateTimeExamples {
         Period tenDays = Period.ofDays(10);
         Period threeWeeks = Period.ofWeeks(3);
         Period twoYearsSixMonthsOneDay = Period.of(2, 6, 1);
-        System.out.println("Period:"+tenDays+","+threeWeeks+","+twoYearsSixMonthsOneDay);
+        System.out.println("Period:" + tenDays + "," + threeWeeks + "," + twoYearsSixMonthsOneDay);
 
         JapaneseDate japaneseDate = JapaneseDate.from(date);
         System.out.println(japaneseDate);
     }
 
     private static void useTemporalAdjuster() {
+        System.out.println("useTemporalAdjuster:");
+        LocalDate date1 = LocalDate.of(2014, 3, 18);
+        LocalDate date2 = date1.withYear(2011);
+        LocalDate date3 = date2.withDayOfMonth(25);
+        LocalDate date4 = date3.with(ChronoField.MONTH_OF_YEAR, 9);
+        //date1:2014-03-18,date2:2011-03-18,date3:2011-03-25,date4:2011-09-25
+        System.out.println("date1:" + date1 + ",date2:" + date2 + ",date3:" + date3 + ",date4:" + date4);
+
+        date1 = LocalDate.of(2014, 3, 18);
+        date2 = date1.plusWeeks(1);
+        date3 = date2.minusYears(3);
+        date4 = date3.plus(6, ChronoUnit.MONTHS);
+        //date1:2014-03-18,date2:2014-03-25,date3:2011-03-25,date4:2011-09-25
+        System.out.println("date1:" + date1 + ",date2:" + date2 + ",date3:" + date3 + ",date4:" + date4);
+
         LocalDate date = LocalDate.of(2014, 3, 18);
         date = date.with(nextOrSame(DayOfWeek.SUNDAY));
         System.out.println(date);
