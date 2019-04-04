@@ -40,6 +40,7 @@ public class DateTimeExamples {
         System.out.println(zoneId);
         LocalDate date = LocalDate.of(2014, 3, 18);
         LocalDateTime localDateTime = date.atStartOfDay();
+        localDateTime = localDateTime.withHour(8);
         System.out.println(localDateTime);
         ZonedDateTime zonedDateTime = localDateTime.atZone(zoneId);
         System.out.println("zonedDateTime:" + zonedDateTime);
@@ -49,7 +50,13 @@ public class DateTimeExamples {
 
         //localDateTime.toInstant(zoneId);
         LocalDateTime timeFromInstant = LocalDateTime.ofInstant(now, zoneId);
-        System.out.println("timeFromInstant:"+timeFromInstant);
+        System.out.println("timeFromInstant:" + timeFromInstant);
+
+        ZoneOffset newYorkOffset = ZoneOffset.of("-05:00");
+        ZoneOffset beijingOffset = ZoneOffset.of("+08:00");
+        System.out.println(newYorkOffset + "," + beijingOffset);
+        OffsetDateTime dateTimeInNewYork = OffsetDateTime.of(localDateTime, newYorkOffset);
+        System.out.println(dateTimeInNewYork);
     }
 
     private static void useOldDate() {
